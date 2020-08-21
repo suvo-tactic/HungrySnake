@@ -7,8 +7,8 @@ import java.awt.event.KeyListener;
 
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
-    private int[] snakeXlength = new int [750];
-    private int[] snakeYlength = new int [750];
+    private int[] snakexlength = new int [750];
+    private int[] snakeylength = new int [750];
 
 
     private boolean left =false;
@@ -20,6 +20,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private ImageIcon leftmouth;
     private ImageIcon upmouth;
     private ImageIcon downmouth;
+
+    private int lengthofsnake = 3;
 
     private Timer timer;
     private int delay = 100;
@@ -56,6 +58,35 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.BLACK);
         g.fillRect(25, 75,850,575);
 
+        rightmouth = new ImageIcon("rightmouth.png");
+        rightmouth.paintIcon(this,g,snakexlength[0],snakeylength[0]);
+
+        for (int a=0; a< lengthofsnake;a++)
+        {
+            if(a==0 && right)
+            {
+                rightmouth = new ImageIcon("rightmouth.png");
+                rightmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
+            }
+
+            if(a==0 && left)
+            {
+                leftmouth = new ImageIcon("leftmouthpng");
+                leftmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
+            }
+
+            if(a==0 && down)
+            {
+                downmouth = new ImageIcon("downmouth.png");
+                downmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
+            }
+
+            if(a==0 && up)
+            {
+                upmouth = new ImageIcon("upmouth.png");
+                upmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
+            }
+        }
         g.dispose();
     }
 
