@@ -27,7 +27,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int delay = 100;
 
     private ImageIcon snakeimage;
-
+    private int moves = 0;
 
     private ImageIcon titleImage;
 
@@ -42,6 +42,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
      }
     public void paint(Graphics g)
     {
+        if(moves==0)
+        {
+            snakexlength[2] = 50;
+            snakexlength[1] = 75;
+            snakexlength[0] = 100;
+
+            snakeylength[2] = 100;
+            snakeylength[1] = 100;
+            snakeylength[0] = 100;
+
+        }
         //draw title image border
         g.setColor(Color.white);
         g.drawRect(24, 10,851,55);
@@ -71,7 +82,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
             if(a==0 && left)
             {
-                leftmouth = new ImageIcon("leftmouthpng");
+                leftmouth = new ImageIcon("leftmouth.png");
                 leftmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
             }
 
@@ -86,14 +97,43 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 upmouth = new ImageIcon("upmouth.png");
                 upmouth.paintIcon(this,g,snakexlength[a],snakeylength[a]);
             }
+            if(a!=0)
+            {
+                snakeimage = new ImageIcon("snakeimage.png");
+                snakeimage.paintIcon(this,g,snakexlength[a],snakeylength[a]);
+            }
         }
         g.dispose();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-    }
+        timer.start ();
+        if (right)
+        {
+            for (int r = lengthofsnake -1; r>=0;r--)
+            {
+                snakexlength[r+1] =snakexlength[r];
+            }
+
+            for (int r = lengthofsnake; r>=0; r--)
+            {
+                if (r == 0)
+                {
+                    snakexlength[r] =snakexlength[r] +25;
+                }
+                else
+                {
+                    snakexlength[r] = snakexlength[r-1];
+                }
+                if(snakexlength[r] > 550)
+                {
+                    snakexlength[r] = 25;
+                }
+            }
+            }
+        }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -102,7 +142,73 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+        {
+            moves++;
+            right = true;
+            if (!left)
+            {
+                right = true;
+            }
+            else
+            {
+                right = false;
+                left = true;
+            }
+            up = false;
+            down = false;
+        }
 
+        if (e.getKeyCode() == KeyEvent.VK_LEFT)
+        {
+            moves++;
+            left = true;
+            if (!right)
+            {
+                left = true;
+            }
+            else
+            {
+                left = false;
+                right = true;
+            }
+            up = false;
+            down = false;
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_UP)
+        {
+            moves++;
+            up = true;
+            if (!down)
+            {
+                up = true;
+            }
+            else
+            {
+                up = false;
+                down = true;
+            }
+            right = false;
+            left = false;
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_DOWN)
+        {
+            moves++;
+            down = true;
+            if (!up)
+            {
+                down = true;
+            }
+            else
+            {
+                down = false;
+                up = true;
+            }
+            right = false;
+            left = false;
+        }
     }
 
     @Override
