@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
@@ -27,6 +28,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int delay = 100;
 
     private ImageIcon snakeimage;
+
+    private int [] enemyxpos = {25,50,75,100,125,150,175,200,225,250,275,300,325,
+            350,375,400,425,450,475,500,525,550,575,600,625,650
+            ,675,700,725,750,800,825,850};
+
+    private int [] enemyypos = {75,100,125,150,175,200,225,250,275,300,325,
+            350,375,400,425,450,475,500,525,550,575,600,625};
+
+    private ImageIcon enemyimage;
+    private Random random = new Random();
+    private int xpos = random.nextInt(34);
+    private int ypos = random.nextInt(23);
+
     private int moves = 0;
 
     private ImageIcon titleImage;
@@ -103,7 +117,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 snakeimage.paintIcon(this,g,snakexlength[a],snakeylength[a]);
             }
         }
-        g.dispose();
+
+        enemyimage = new ImageIcon("enemy.png");
+        if((enemyxpos[xpos] == snakexlength[0] && enemyypos[ypos] == snakeylength[0]))
+        {
+            lengthofsnake++;
+            xpos = random.nextInt(34);
+            ypos = random.nextInt(23);
+        }
+        enemyimage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
+            g.dispose();
     }
 
     @Override
