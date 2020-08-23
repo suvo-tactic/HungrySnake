@@ -108,12 +108,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        timer.start ();
+        timer.start();
         if (right)
         {
             for (int r = lengthofsnake -1; r>=0;r--)
             {
-                snakexlength[r+1] =snakexlength[r];
+                snakeylength[r+1] =snakeylength[r];
             }
 
             for (int r = lengthofsnake; r>=0; r--)
@@ -126,11 +126,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 {
                     snakexlength[r] = snakexlength[r-1];
                 }
-                if(snakexlength[r] > 550)
+                if(snakexlength[r] > 850)
                 {
                     snakexlength[r] = 25;
                 }
             }
+            repaint();
             }
         }
 
